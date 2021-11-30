@@ -1,50 +1,53 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Cancion";
-  
-    let cols = {
-      id: {
-        type: dataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
-      },
-      titulo: {
-        type: dataTypes.STRING,
-       
-      },
-      duracion: {
-        type: dataTypes.INTEGER,
-        
-      },
-      apellido: {
-        type: dataTypes.STRING,
-       
-      },
-    };
-  
-    let config = {
-      tableName: "canciones",
-      timestamps: true,
-      deletedAt: false,
-    };
-  
-    const Cancion = sequelize.define(alias, cols, config);
-  
-    Cancion.associate = (models) => {
+  let alias = "Cancion";
+
+  let cols = {
+    id: {
+      type: dataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    titulo: {
+      type: dataTypes.STRING,
+     
+    },
+    duracion: {
+      type: dataTypes.INTEGER,
       
-      Cancion.HasMany(models.Album, {
-        as: "albumes",
-        foreignKey: "album_id",
-      });
-      Cancion.HasMany(models.Artista, {
-        as: "artistas",
-        foreignKey: "artista_id",
-      });
-      Cancion.HasMany(models.Genero, {
-        as: "generos",
-        foreignKey: "genero_id",
-      });
-    };
-  
-    return Cancion;
+    },
+
+     
+
+    
   };
+
+  let config = {
+    tableName: "canciones",
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: false,
+  };
+
+  const Cancion = sequelize.define(alias, cols, config);
+
+  Cancion.associate = models => {
+    
+     Cancion.belongsTo(models.Album, {
+      as: "albumes",
+      foreignKey: "album_id",
+    });  
+    Cancion.belongsTo(models.Artista, {
+      as: "artista",
+      foreignKey: "artista_id",
+    });
+    //genero
+    Cancion.belongsTo(models.Genero, {
+      as: "genero",
+      foreignKey: "genero_id",
+    }); 
+  };
+
+  return Cancion;
+};

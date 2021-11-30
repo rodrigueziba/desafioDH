@@ -8,6 +8,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+//rutas api
+//const albumesApiRouter = require('./routes/albumesRouter');
+const cancionesApiRouter = require('./routes/cancionesRouter');
+//const generosApiRouter = require('./routes/generosRouter');
+//const artistasApiRouter = require('./routes/artistasRouter');
+app.use('/canciones',cancionesApiRouter);
+//app.use('/generos',generosApiRouter);
+
+//app.use(artistasApiRouter);
+//app.use(albumesApiRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
