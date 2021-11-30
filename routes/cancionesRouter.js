@@ -5,16 +5,16 @@ var cancionesController = require ("../controllers/apiCancionController")
 //Creacion
 
 router.get ("/", cancionesController.list);
-
+router.post("/", cancionesController.create);
 //router.get ("/search", cancionesController.search);
 
-router.post("/", cancionesController.store);
+
+
 
 router.get ("/:id", cancionesController.show);
 
 router.delete ("/:id", cancionesController.delete);
 
-router.get ("/", cancionesController.store);
 
 
 

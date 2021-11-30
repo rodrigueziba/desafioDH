@@ -10,8 +10,9 @@ let cancionesController = {
            // console.log(canciones);
              return res.status(200).json({
                 total: canciones.length,
+                status: "200",
+                url: '/canciones',
                 data: canciones,
-                status: "200"
             });
         })
         
@@ -19,33 +20,52 @@ let cancionesController = {
         .catch(function(error){
             return res.status(500).json({
                 error: error,
-                status: "la concha de tu madre esta poronga no funciona"
+                status: "error"
             });
         }); 
     },
 
-     store: (req, res) => {
+     create: (req, res) => {
         
-        db.Cancion
-        
-        
-        .create(req.body)
-        
-        .then(function(cancion){
-             return res.status(200).json({
-                data: cancion,
-                status: 200,
-                created : 'ok'
-            })
+        db.Cancion.create(
+            {
+                id: req.body.id,
+            titulo: req.body.titulo,
+            duracion: req.body.duracion,
+            album_id: req.body.album_id,
+            genero_id: req.body.genero_id,
+            artista_id: req.body.artista_id,
+
+            }
             
-        }) 
+            ).then(confirm =>{
+            let respuesta;
+            if (confirm){
+                respuesta= {
+                    meta: {
+                        status: 200,
+                        total: confirm.length,
+                        url: '/canciones'
+                    },
+                    data: confirmm
+                }
+            }
+            else{
+                respuesta= {
+                    meta: {
+                        status: 200,
+                        total: confirm.length,
+                        url: '/canciones'
+                    },
+                    data: confirmm
+                }
+            }
+            res.json(respuesta); 
+        })
         
-        .catch(function(error){
-            return res.status(500).json({
-                error: error,
-                status: "que pija esto q no funciona, no?"
-            });
-        });
+        
+        .catch(error =>res.send(error));
+        
     },
 
      show: (req, res) => {
