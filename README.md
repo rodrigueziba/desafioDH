@@ -22,9 +22,9 @@ _Las relaciones están definidas de la siguiente forma_
 
 API REST de la base de datos "Musicando" 
 
-/canciones (GET) que muestre un listado de las canciones con sus propiedades // ok
-/canciones (POST) para crear un nuevo registro de una canción // ok
-/canciones/:id (GET) que muestre una canción // ok
-/canciones/:id (PUT) para editar una canción // 
-/canciones/:id (DELETE) para eliminar una canción 
-/generos (GET) listado de todos los géneros con sus canciones 
+- /canciones (GET) que muestre un listado de las canciones con sus propiedades // ok
+- /canciones (POST) para crear un nuevo registro de una canción // ok
+- /canciones/:id (GET) que muestre una canción // ok
+- /canciones/:id (PUT) para editar una canción // 
+- /canciones/:id (DELETE) para eliminar una canción 
+- /generos (GET) listado de todos los géneros con sus canciones 
