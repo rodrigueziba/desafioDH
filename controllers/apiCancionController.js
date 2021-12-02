@@ -120,8 +120,11 @@ let cancionesController = {
      },
 
 
-     edit: (req, res) => {
-        
+     edit: async (req, res) => {
+         let idAEncontrar = req.params.id;
+         let update = await db.Cancion.findByPk(idAEncontrar);
+
+        await   
         db.Cancion.update(req.body, 
             {
             where: { 
@@ -130,11 +133,19 @@ let cancionesController = {
             
         })
         .then(function(cancion){
-             return res.status(200).json({
-                data: req.body,
-                status: 200,
-                updated : 'ok'
-            })
+            if(update == null){
+                return res.status(404).json({
+                    meta: {
+                        status: 404,
+                        notfound: "id no existente",
+                    }
+            })}
+            else{
+                return res.status(200).json({
+                    data: req.body,
+                    status: 200,
+                    updated : 'ok'
+                })}
             
         }) 
         .catch(function(error){
