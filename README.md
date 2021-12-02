@@ -1,5 +1,6 @@
 # desafioDH
-Desafio Digital House
+Desafio Digital House - Ezequiel Ibarra
+
 Script de importación se encuentra en el material dentro de /database
 
 
@@ -11,7 +12,7 @@ _Esta base de datos está compuesta por las siguientes tablas_
 
 _Las relaciones están definidas de la siguiente forma_
 - Una canción tiene un album
-- Un albun tiene muchas canciones
+- Un album tiene muchas canciones
 
 - Una canción tiene un genero
 - Un genero tiene muchas canciones
