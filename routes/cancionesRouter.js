@@ -2,24 +2,17 @@ var express = require('express');
 var router = express.Router();
 var cancionesController = require ("../controllers/apiCancionController")
 
-//Creacion
-
+//listar canciones
 router.get ("/", cancionesController.list);
+//crear cancion
 router.post("/", cancionesController.create);
-//router.get ("/search", cancionesController.search);
-
-
-
-
-router.get ("/:id", cancionesController.show);
-
+//mostrar una cancion
+router.get("/:id", cancionesController.show);
+//borrar una cancion
 router.delete ("/:id", cancionesController.delete);
+//editar una cancion
+router.put("/edit/:id", cancionesController.edit);
 
 
-
-
-//router.get("/edit/:id", cancionesController.edit);
-
-//router.post("/:id", cancionesController.delete);
 
 module.exports = router;

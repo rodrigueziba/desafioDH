@@ -22,19 +22,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
   //rutas api
-//const albumesApiRouter = require('./routes/albumesRouter');
 const cancionesApiRouter = require('./routes/cancionesRouter');
-//const generosApiRouter = require('./routes/generosRouter');
-//const artistasApiRouter = require('./routes/artistasRouter');
+const generosApiRouter = require('./routes/generosRouter');
+
 app.use('/canciones',cancionesApiRouter);
-//app.use('/generos',generosApiRouter);
-
-//app.use(artistasApiRouter);
-//app.use(albumesApiRouter);
-//var bodyParser = require('body-parser');
-//app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json())
-
+app.use('/generos',generosApiRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

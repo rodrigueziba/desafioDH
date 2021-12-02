@@ -35,7 +35,7 @@ module.exports = (sequelize, dataTypes) => {
   Cancion.associate = models => {
     
      Cancion.belongsTo(models.Album, {
-      as: "albumes",
+      as: "album",
       foreignKey: "album_id",
     });  
     Cancion.belongsTo(models.Artista, {

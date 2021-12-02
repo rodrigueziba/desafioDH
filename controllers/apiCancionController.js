@@ -5,7 +5,7 @@ const Op =db.Sequelize.Op;
 
 let cancionesController = {
     list: (req, res) => {
-        db.Cancion.findAll()
+        db.Cancion.findAll(   {include: ["genero","artista","album"]})
         .then(function(canciones){
            // console.log(canciones);
              return res.status(200).json({
@@ -29,7 +29,7 @@ let cancionesController = {
         
         db.Cancion.create(
             {
-                id: req.body.id,
+            id: req.body.id,
             titulo: req.body.titulo,
             duracion: req.body.duracion,
             album_id: req.body.album_id,
@@ -47,7 +47,7 @@ let cancionesController = {
                         total: confirm.length,
                         url: '/canciones'
                     },
-                    data: confirmm
+                    data: confirm
                 }
             }
             else{
@@ -57,7 +57,7 @@ let cancionesController = {
                         total: confirm.length,
                         url: '/canciones'
                     },
-                    data: confirmm
+                    data: confirm
                 }
             }
             res.json(respuesta); 
@@ -69,12 +69,27 @@ let cancionesController = {
     },
 
      show: (req, res) => {
-        db.Cancion.findByPk(req.params.id, {include: ["genero","artista"]})
+        db.Cancion.findByPk(
+            req.params.id, 
+            {include: ["genero","artista","album"]}
+            )
         .then(function(cancion){
-            return res.status(200).json({
-                data: cancion,
-                status: 200
-            });
+            if((!cancion)){
+                return res.status(404).json({
+                    meta: {
+                        status: 404,
+                        notfound: "El id no existe",
+                    }
+                });}
+                else{ return res.status(200).json({
+                    data: cancion,
+                    status: 200
+                });}
+
+
+
+
+           
         })
         .catch(function(error){
             return res.status(500).json({
@@ -83,15 +98,17 @@ let cancionesController = {
             });
         }); 
     },
+
+
      delete: (req, res) => {
-         db.Cancion
-         .destroy({
+         db.Cancion.destroy(
+             {
              where: { 
                  id: req.params.id
              }
-         })
-             .then((cancion)=>{
-                 return res.json(cancion,cancioneliminada)
+            })
+             .then((response)=>{
+                 return res.json(response)
              })
              .catch(function(error){
                 return res.status(500).json({
@@ -105,8 +122,8 @@ let cancionesController = {
 
      edit: (req, res) => {
         
-        db.Cancion 
-            .update(req.body, {
+        db.Cancion.update(req.body, 
+            {
             where: { 
                 id: req.params.id
             }
@@ -114,37 +131,23 @@ let cancionesController = {
         })
         .then(function(cancion){
              return res.status(200).json({
-                data: cancion,
+                data: req.body,
                 status: 200,
                 updated : 'ok'
             })
             
         }) 
-        
         .catch(function(error){
             return res.status(500).json({
                 error: error,
-                status: "oh no, no funciona"
+                status: "error"
             });
         });
     },
-     search : (req, res) => {
-         db.Cancion.findAll({
-             where: {
-                 titulo: { [db.Sequelize.Op.like]: '%' + req.query.keyword + '%' }
-             }
-         })
-         .then(function(canciones){
-             return res.status(200).json(canciones);
- 
-        })
-        .catch(function(error){
-            return res.status(500).json({
-                error: error,
-                status: 500
-            });
-        });  
-    }
+
+
+
+    
         }
 
         module.exports = cancionesController;
